@@ -1,0 +1,118 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>For Meriem, Bonita</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,600&family=Nunito:wght@400;600&display=swap">
+<style>
+/* Layout: one centered letter on a night sky that warms toward dawn as you read. Single deliberate look. */
+:root {
+  --night: #1c1430;
+  --dusk: #4a2546;
+  --dawn: #e8907a;
+  --ink: #fbeee6;
+  --soft: #d9bfd0;
+  --glow: #ffcf9e;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+html, body { min-height: 100%; }
+body {
+  background: var(--night);
+  background-image: linear-gradient(180deg, var(--night) 0%, var(--dusk) 60%, var(--dawn) 130%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.06rem;
+  line-height: 1.7;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 3rem 4rem;
+  overflow-x: hidden;
+}
+canvas#stars { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+main { position: relative; z-index: 1; max-width: 36rem; margin: 0 auto; display: grid; gap: 1.8rem; }
+.moon { width: 64px; height: 64px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 60px 10px rgba(255,207,158,.35); position: relative; }
+.moon::after { content: ""; position: absolute; width: 64px; height: 64px; border-radius: 50%; background: var(--night); top: -10px; left: 18px; }
+.eyebrow { font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); margin: 0; }
+h1 { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(2.4rem, 8vw, 3.6rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+h1 span { color: var(--glow); }
+p { margin: 0; }
+.letter { display: grid; gap: 1.1rem; }
+.letter em { font-family: var(--display); color: var(--glow); font-style: italic; }
+.kiss { display: grid; gap: 1rem; justify-items: start; }
+button {
+  font: 600 1rem var(--body); color: var(--night); background: var(--glow);
+  border: 0; border-radius: 999px; padding: .8rem 1.4rem; cursor: pointer;
+  transition: transform .2s ease;
+}
+button:hover { transform: translateY(-2px); }
+button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+#note { font-family: var(--display); font-style: italic; font-size: 1.35rem; line-height: 1.4; min-height: 3.8em; color: var(--ink); transition: opacity .35s ease; }
+.sign { font-family: var(--display); font-style: italic; font-size: 1.5rem; color: var(--glow); }
+@media (prefers-reduced-motion: reduce) { button, #note { transition: none; } }
+</style>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<main>
+  <div class="moon" aria-hidden="true"></div>
+  <p class="eyebrow">A little message for a long night</p>
+  <h1>Good morning, <span>bonita</span>.</h1>
+
+  <div class="letter">
+    <p>I know you didn't sleep well, and I know that makes everything feel heavier today. You're allowed to be grumpy. You're allowed to be tired. You don't have to be okay for anyone right now, not even for me.</p>
+    <p>Just know this: even on your worst-slept, messiest-hair, don't-talk-to-me mornings, you are still the most beautiful thing in my day. Your bad mood doesn't scare me, <em>bonita</em>. I'll take every version of you.</p>
+    <p>Drink some water. Eat something small. Close your eyes for ten minutes if you can. And if the day gets loud, come back to this page and remember that someone is thinking about you nonstop.</p>
+  </div>
+
+  <div class="kiss">
+    <p id="note" aria-live="polite">Tap the button. Papi left you some things to say.</p>
+    <button id="more" type="button">One more, papi</button>
+  </div>
+
+  <p class="sign">All yours, Papi ♡</p>
+</main>
+
+<script>
+const lines = [
+  "You're my favorite person, even when you're sleepy and mad at the whole world.",
+  "If I could, I'd hold you until all the tiredness melts away, bonita.",
+  "Tonight you'll sleep like a baby. Papi says so.",
+  "Your smile is coming back. I'm patient. I'll wait for it.",
+  "You carry so much. Let me carry a little of today for you.",
+  "Mi bonita, mi vida. Even tired, you shine.",
+  "Bad sleep, bad mood, still the love of my life.",
+  "Send me one emoji and I'll know you're okay. Papi is right here."
+];
+let i = -1;
+const note = document.getElementById("note");
+document.getElementById("more").addEventListener("click", () => {
+  i = (i + 1) % lines.length;
+  note.style.opacity = 0;
+  setTimeout(() => { note.textContent = lines[i]; note.style.opacity = 1; }, 200);
+});
+
+const c = document.getElementById("stars"), x = c.getContext("2d");
+const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let stars = [];
+function size() {
+  c.width = innerWidth * devicePixelRatio; c.height = innerHeight * devicePixelRatio;
+  stars = Array.from({ length: 90 }, () => ({
+    x: Math.random() * c.width, y: Math.random() * c.height * .7,
+    r: (Math.random() * 1.2 + .3) * devicePixelRatio, p: Math.random() * 6.28
+  }));
+}
+function draw(t) {
+  x.clearRect(0, 0, c.width, c.height);
+  for (const s of stars) {
+    x.globalAlpha = still ? .7 : .4 + .4 * Math.sin(t / 900 + s.p);
+    x.fillStyle = "#fbeee6";
+    x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.28); x.fill();
+  }
+  if (!still) requestAnimationFrame(draw);
+}
+addEventListener("resize", size);
+size(); draw(0);
+</script>
+
+</body></html>
